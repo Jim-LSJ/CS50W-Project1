@@ -1,0 +1,12 @@
+{% extends "logedin_layout.html" %}
+
+{% block body %}
+    <div class="container w-50" style="text-align: center; padding-top: 1rem;">
+        <form action="/search" method="post" onSubmit="location = /search?query=this.input.value;">
+            <h3>Search books here</h3>
+            <p><i>ISBN, title, or author</i></p>
+            <input class="form-control mr-sm-2" name="query" type="search" placeholder="ISBN, title, or author" aria-label="Search" style="text-align: center;">
+            <button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button>
+        </form>
+    </div>
+{% endblock %}

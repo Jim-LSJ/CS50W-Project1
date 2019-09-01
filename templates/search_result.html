@@ -1,0 +1,37 @@
+{% extends "logedin_layout.html" %}
+
+{% block body %}
+    <!-- <div>
+        <form class="form-inline" action="/search" method="GET">
+            <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div> -->
+    <div class="py-5">
+        <div class="container">
+        {% for i in range(books_list|length) %}
+            {%if i % 3 == 0 %}
+                <div class="row hidden-md-up">
+            {% endif %}
+                    <div class="col-md-4">
+                        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                            <div class="card-header">
+                                <h5 class="card-title">{{ books_list[i][1] }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">written by {{ books_list[i][2] }}</h5>
+                                <p class="card-text">Published in {{ books_list[i][3] }}<br>
+                                    ISBN: {{ books_list[i][0] }}<br><br>
+                                    <!-- Average Goodreads rating: {{ books_list[i]['average_rating'] }}<br>
+                                    Number of ratings: {{ books_list[i]['number_ratings'] }} -->
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            {%if i % 3 == 2 or i == books_list|length - 1 %}
+                </div><br>
+            {% endif %}    
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

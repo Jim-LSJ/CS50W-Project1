@@ -1,0 +1,33 @@
+{% extends "login_layout.html" %}
+
+{% block body %}
+    <div class="container w-50" style="padding-top: 1rem;">
+        <h1 style="text-align: center">Create an account</h1>
+        <form action="/register" method="POST">
+            <div>
+                <h4>Account</h4>
+                <input class="form-control" name="username" autocomplete="off" placeholder="Username" type="text">
+            </div>
+            <br>
+            <div>
+                <h4>Password</h4>
+                <input class="form-control" name="password" placeholder="Password" type="password">
+            </div>
+            <br>
+            <div>
+                <h4>Confirm</h4>
+                <input class="form-control" name="confirm" placeholder="Retype your password" type="password">
+            </div>
+            <br>
+
+            {% if error %}
+                <p style="color: red">{{ error }}</p>
+            {% endif %}
+            
+            <button class="btn btn-success" type="submit">Register</button>
+            <span style="padding-left: 20px;">
+                Already have an account? <a href="/">Log in</a>
+            </span>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "logedin_layout.html" %}
+
+{% block body %}
+    <div class="container w-50" style="text-align: center; padding-top: 1rem;">
+        <h1><i>{{ book_info['title'] }}</i></h1>
+        <br>
+        <h3>written by {{ book_info['author'] }}</h3>
+        <br>
+        <h5>Published in {{ book_info['year'] }}
+        <br>
+        ISBN: {{ book_info['isbn'] }}
+        <br>
+        <br>
+        Average Goodreads rating: {{ book_info['avg_rating'] }}<br>
+        Work ratings count: {{ book_info['work_ratings_count'] }}<br>
+        <br>
+        <form action="/book/1/{{ book_info['id'] }}" method="post">
+            <div class="form-group">
+
+                <label for="rating">Rate this book!</label>
+                <select class="form-control" name="rating" id="rating">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+
+                <label for="review">What did you think of this book?</label>
+                <textarea class="form-control" rows="3" autocomplete="off" name="review_text" id="review"></textarea>
+
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+        <br>
+        </h5>
+        {% if error %}
+            <h5>You have already posted a review.</h5>
+        {% endif %}
+        <h5>User reviews:</h5>
+    </div>
+    {% if reviews|length > 0 %}
+      <ul class="list-group">
+        {% for review in reviews %}
+          <li class="list-group-item">
+            Reviewer: {{ review['reviewer'] }}<br>
+            Rating: {{ review['rating'] }}<br>
+            {{ review['review_text'] }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <h5>None. Be the first to leave a review!</h5>
+    {% endif %}
+{% endblock %}

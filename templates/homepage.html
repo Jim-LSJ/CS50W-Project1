@@ -1,0 +1,50 @@
+{% extends "logedin_layout.html" %}
+
+{% block body %}
+    <div class="container w-50" style="text-align: center; padding-top: 1rem;">
+        <form action="/search" method="post" onSubmit="location = /search?query=this.input.value;">
+            <h3>Search books here</h3>
+            <p><i>ISBN, title, or author</i></p>
+            <input class="form-control mr-sm-2" name="query" type="search" placeholder="ISBN, title, or author" aria-label="Search" style="text-align: center;">
+            <button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="py-5">
+        <div class="container">
+        {% for i in range(books_list|length) %}
+            {%if i % 3 == 0 %}
+                <div class="row hidden-md-up">
+            {% endif %}
+                    <div class="col-md-4" onClick="location.href='/book/1/{{ books_list[i][4] }}';">
+                        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                            <div class="card-header">
+                                <h5 class="card-title">{{ books_list[i][1] }}</h5>
+                                <p class="card-text"><i>written by {{ books_list[i][2] }}</i></p>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Published in {{ books_list[i][3] }}<br>
+                                    ISBN: {{ books_list[i][0] }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            {%if i % 3 == 2 or i == books_list|length - 1 %}
+                </div><br>
+            {% endif %}    
+        {% endfor %}
+        </div>
+    </div>
+    <div class="form-group" style="width: 80px">
+        <label for="SelectPage">Page</label>
+        <select class="form-control" onChange="location = this.options[this.selectedIndex].value;" id="SelectPage">
+            {% for i in range(556) %}
+                {% if i+1 == page %}
+                    <option selected="selected" value="/homepage/{{ i + 1 }}">{{ i + 1}}</option>
+                {% else %}
+                    <option value="/homepage/{{ i + 1 }}">{{ i + 1}}</option>
+                {% endif %}        
+            {% endfor %}
+        </select>
+    </div>
+{% endblock %}

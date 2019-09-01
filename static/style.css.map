@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,IAAK;EACD,UAAU,EAAE,MAAM;;AAGtB,gBAAgB;EACZ,OAAO,EAAE,GAAG",
+"sources": ["../../../../%E6%A1%8C%E9%9D%A2/CS50W/Project1/style.scss"],
+"names": [],
+"file": "style.css"
+}
