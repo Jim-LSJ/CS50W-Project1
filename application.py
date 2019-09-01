@@ -83,6 +83,9 @@ def logout():
 
 @app.route('/homepage/<page>')
 def homepage(page):
+    if session.get("user") is None:
+        return redirect("/")
+
     books = db.execute("SELECT isbn, title, author, year, id FROM books LIMIT 9 OFFSET 9 * :page", {"page": str((int(page) - 1))})
     books_list = []
 
@@ -97,6 +100,9 @@ def homepage(page):
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
+    if session.get("user") is None:
+        return redirect("/")
+
     query = request.form.get("query")
     if query is None or query == "":
         return render_template("search.html")
@@ -117,6 +123,9 @@ def search():
 
 @app.route("/book/<error>/<id>", methods=["GET", "POST"])
 def book(id, error = None):
+    if session.get("user") is None:
+        return redirect("/")
+
     if request.method == "GET":
         book_query = db.execute("SELECT isbn, title, author, year, id FROM books WHERE id = :id",
             {"id": id})
@@ -154,9 +163,15 @@ def book(id, error = None):
 
 @app.route("/api/<isbn>")
 def api(isbn):
+    if session.get("user") is None:
+        return redirect("/")
+
     book_query = db.execute("SELECT title, author, year, isbn, id FROM books WHERE isbn = :isbn",
         {"isbn": isbn})
-    book_info = dict(book_query.first())
+    book = book_query.first()
+    if book is None:
+        return "<h1>404 Not Found</h1>"
+    book_info = dict(book)
 
     review_query = db.execute("SELECT COUNT(*), AVG(rating) FROM reviews where book_id = :id",
             {"id": book_info['id']})

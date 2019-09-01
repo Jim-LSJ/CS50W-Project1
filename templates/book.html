@@ -37,19 +37,20 @@
         {% if error %}
             <h5>You have already posted a review.</h5>
         {% endif %}
-        <h5>User reviews:</h5>
+        
+        {% if reviews|length > 0 %}
+            <h5>User reviews:</h5>
+            <ul class="list-group">
+                {% for review in reviews %}
+                <li class="list-group-item">
+                    Reviewer: {{ review['reviewer'] }}<br>
+                    Rating: {{ review['rating'] }}<br>
+                    {{ review['review_text'] }}
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h5>None. Be the first to leave a review!</h5>
+        {% endif %}
     </div>
-    {% if reviews|length > 0 %}
-      <ul class="list-group">
-        {% for review in reviews %}
-          <li class="list-group-item">
-            Reviewer: {{ review['reviewer'] }}<br>
-            Rating: {{ review['rating'] }}<br>
-            {{ review['review_text'] }}
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <h5>None. Be the first to leave a review!</h5>
-    {% endif %}
 {% endblock %}
