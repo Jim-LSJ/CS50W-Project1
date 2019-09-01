@@ -13,17 +13,15 @@
             {%if i % 3 == 0 %}
                 <div class="row hidden-md-up">
             {% endif %}
-                    <div class="col-md-4">
-                        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                    <div class="col-md-4" onClick="location.href='/book/1/{{ books_list[i][4] }}';">
+                        <div class="card text-white bg-dark mb-3" id="link-card" style="max-width: 18rem;">
                             <div class="card-header">
                                 <h5 class="card-title">{{ books_list[i][1] }}</h5>
+                                <p class="card-text"><i>written by {{ books_list[i][2] }}</i></p>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">written by {{ books_list[i][2] }}</h5>
                                 <p class="card-text">Published in {{ books_list[i][3] }}<br>
-                                    ISBN: {{ books_list[i][0] }}<br><br>
-                                    <!-- Average Goodreads rating: {{ books_list[i]['average_rating'] }}<br>
-                                    Number of ratings: {{ books_list[i]['number_ratings'] }} -->
+                                    ISBN: {{ books_list[i][0] }}
                                 </p>
                             </div>
                         </div>

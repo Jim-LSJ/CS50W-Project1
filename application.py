@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 from util import myhash, get_from_goodreads
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -153,12 +154,22 @@ def book(id, error = None):
 
 @app.route("/api/<isbn>")
 def api(isbn):
-    books = db.execute("SELECT isbn, title, author, year FROM books WHERE isbn = :isbn", {"isbn": isbn})
-    book_info = dict(books.first())
-    avg_rating, work_ratings_count = get_from_goodreads(isbn)
-    book_info['avg_rating'] = avg_rating
-    book_info['work_ratings_count'] = work_ratings_count
-    return book_info
+    book_query = db.execute("SELECT title, author, year, isbn, id FROM books WHERE isbn = :isbn",
+        {"isbn": isbn})
+    book_info = dict(book_query.first())
+
+    review_query = db.execute("SELECT COUNT(*), AVG(rating) FROM reviews where book_id = :id",
+            {"id": book_info['id']})
+    book_info.pop('id')
+
+    review = review_query.first()
+    book_info['review_count'] = review[0]
+    try:
+        book_info['average_score'] = float(review[1])
+    except:
+        book_info['average_score'] = None
+
+    return jsonify(book_info)
 
 
 

@@ -6,6 +6,7 @@
             <h3>Search books here</h3>
             <p><i>ISBN, title, or author</i></p>
             <input class="form-control mr-sm-2" name="query" type="search" placeholder="ISBN, title, or author" aria-label="Search" style="text-align: center;">
+            <br>
             <button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button>
         </form>
     </div>
@@ -17,7 +18,7 @@
                 <div class="row hidden-md-up">
             {% endif %}
                     <div class="col-md-4" onClick="location.href='/book/1/{{ books_list[i][4] }}';">
-                        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                        <div class="card text-white bg-dark mb-3" id="link-card" style="max-width: 18rem;">
                             <div class="card-header">
                                 <h5 class="card-title">{{ books_list[i][1] }}</h5>
                                 <p class="card-text"><i>written by {{ books_list[i][2] }}</i></p>
@@ -40,9 +41,9 @@
         <select class="form-control" onChange="location = this.options[this.selectedIndex].value;" id="SelectPage">
             {% for i in range(556) %}
                 {% if i+1 == page %}
-                    <option selected="selected" value="/homepage/{{ i + 1 }}">{{ i + 1}}</option>
+                    <option selected="selected" value="/homepage/{{ i + 1 }}">{{ i + 1 }}</option>
                 {% else %}
-                    <option value="/homepage/{{ i + 1 }}">{{ i + 1}}</option>
+                    <option value="/homepage/{{ i + 1 }}">{{ i + 1 }}</option>
                 {% endif %}        
             {% endfor %}
         </select>

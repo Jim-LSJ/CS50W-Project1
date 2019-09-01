@@ -1,7 +1,13 @@
 main {
   text-align: center; }
 
-.link-card:hover {
-  opacity: 0.5; }
+#link-card:hover {
+  -webkit-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
+  cursor: pointer; }
+
+.card-header, .card-body {
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
