@@ -7,21 +7,7 @@
 {% block body %}
     <div class="py-5">
         <div class="container">
-        {% if books_list|length == 0 %}
-            <div class="container w-75" style="text-align: center; padding-top: 20%;">
-                <h1>Books not found</h1>
-            </div>
-            <script>
-                setTimeout(function(){
-                    window.location = '/search';
-                }, 5000); 
-            </script>
-        {% elif books_list|length == 30 %}
-            <h2 style="padding-bottom: 2rem;">More than {{ books_list|length }} results:</h2>
-        {% else %}
-            <h2 style="padding-bottom: 2rem;">{{ books_list|length }} results:</h2>
-        {% endif %}
-
+            <h2 style="padding-bottom: 2rem;">Top 10 reviews of this site:</h2>
         {% for i in range(books_list|length) %}
             {%if i % 3 == 0 %}
                 <div class="row hidden-md-up">
@@ -33,8 +19,12 @@
                                 <p class="card-text"><i>written by {{ books_list[i][2] }}</i></p>
                             </div>
                             <div class="card-body">
-                                <p class="card-text">Published in {{ books_list[i][3] }}<br>
+                                <p class="card-text">
+                                    Published in {{ books_list[i][3] }}
+                                    <br>
                                     ISBN: {{ books_list[i][0] }}
+                                    <br>
+                                    Reviews: {{ books_list[i][5] }}
                                 </p>
                             </div>
                         </div>

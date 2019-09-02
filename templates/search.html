@@ -1,11 +1,11 @@
 {% extends "logedin_layout.html" %}
 
 {% block user %}
-    {{ user }}
+    <button class="btn btn-light" id="btn-circle" title="{{ user }}">{{ user[0] }}</button>
 {% endblock %}
 
 {% block body %}
-    <div class="container w-50" style="text-align: center; padding-top: 1rem;">
+    <div class="container w-50" style="text-align: center; padding-top: 2rem;">
         <form action="/search" method="post" onSubmit="location = /search?query=this.input.value;">
             <h3>Search books here</h3>
             <p><i>ISBN, title, or author</i></p>

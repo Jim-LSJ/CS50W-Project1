@@ -1,5 +1,12 @@
-main {
-    text-align: center;
+@keyframes fadein {
+    0% {
+        left: 50%;
+        opacity: 0;
+    }
+    100% {
+        left: 0%;
+        opacity: 1.0;
+    }
 }
 
 #link-card:hover {
@@ -8,6 +15,11 @@ main {
     box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
     opacity: 0.95;
     cursor: pointer;
+}
+
+#link-card {
+    animation-duration: 1.5s;
+    animation-name: fadein;
 }
 
 .card-header, .card-body {
@@ -25,4 +37,7 @@ main {
 
 #btn-circle:hover {
     transform: scale(1.1);
+    -webkit-box-shadow: -1px 9px 40px -12px rgba(255, 255, 255, 0.8);
+    -moz-box-shadow: -1px 9px 40px -12px rgba(255, 255, 255, 0.8);
+    box-shadow: -1px 9px 40px -12px rgba(255, 255, 255, 0.8);
 }

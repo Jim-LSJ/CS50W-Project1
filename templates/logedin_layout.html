@@ -3,7 +3,9 @@
     <head>
         <link rel = "stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <link rel = "stylesheet" href="{{ url_for('static', filename='style.css') }}">
-                
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
+        <link rel="bookmark" href="{{ url_for('static', filename='favicon.ico') }}"/>
+
         <title>Welcome to Project1:Books!</title>
     </head>
 
@@ -21,6 +23,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/search">Search</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/top10">Top 10 reviews</a>
+                        </li>
                     </ul>
                     <form class="form-inline" action="/search" method="post" onSubmit="location = /search?query=this.input.value;">
                         <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search">
@@ -29,7 +34,7 @@
                     <ul class="navbar-nav navbar-right">
                         <li class="nav-item">
                             <a class="nav-brand" href="/">
-                                <button class="btn" id="btn-circle" style="background: gray;">{% block user %}{% endblock %}</button>
+                                {% block user %}{% endblock %}
                             </a>
                         </li>
                         <li class="nav-item">
