@@ -28,6 +28,11 @@
                     </form>
                     <ul class="navbar-nav navbar-right">
                         <li class="nav-item">
+                            <a class="nav-brand" href="/">
+                                <button class="btn" id="btn-circle" style="background: gray;">{% block user %}{% endblock %}</button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/logout">log out</a>
                         </li>
                     </ul>

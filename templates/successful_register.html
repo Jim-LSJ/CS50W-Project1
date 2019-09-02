@@ -1,6 +1,13 @@
 {% extends "login_layout.html" %}
 
 {% block body %}
-    <h4>You have been registered.</h4>
-    <h4><a href="/">Log in</a></h4>
+    <script>
+        setTimeout(function(){
+            window.location = '/';
+        }, 3000); 
+    </script>
+    <div class="container w-75" style="text-align: center; padding-top: 20%;">
+        <h1>You have successfully registered.</h1>
+        <h4>The page will be redirected in 3 seconds. <a href="/">Log in</a></h4>
+    </div>
 {% endblock %}

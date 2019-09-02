@@ -1,5 +1,9 @@
 {% extends "logedin_layout.html" %}
 
+{% block user %}
+    {{ user }}
+{% endblock %}
+
 {% block body %}
     <!-- <div>
         <form class="form-inline" action="/search" method="GET">
@@ -9,6 +13,16 @@
     </div> -->
     <div class="py-5">
         <div class="container">
+        {% if books_list|length == 0 %}
+            <div class="container w-75" style="text-align: center; padding-top: 20%;">
+                <h1>Books not found</h1>
+            </div>
+            <script>
+                setTimeout(function(){
+                    window.location = '/search';
+                }, 3000); 
+            </script>
+        {% endif %}
         {% for i in range(books_list|length) %}
             {%if i % 3 == 0 %}
                 <div class="row hidden-md-up">

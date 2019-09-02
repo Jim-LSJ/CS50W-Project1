@@ -96,7 +96,7 @@ def homepage(page):
         books_list.append(row_list)
     books.close()
 
-    return render_template("homepage.html", books_list=books_list, page=int(page))
+    return render_template("homepage.html", books_list=books_list, page=int(page), user=session['user'][0])
 
 @app.route('/search', methods=["GET", "POST"])
 def search():
@@ -105,7 +105,7 @@ def search():
 
     query = request.form.get("query")
     if query is None or query == "":
-        return render_template("search.html")
+        return render_template("search.html", user=session['user'][0])
     query = "%" + query + "%"
 
     books = db.execute("SELECT isbn, title, author, year, id FROM books WHERE isbn LIKE :q OR title LIKE :q OR author LIKE :q OR year LIKE :q",
@@ -119,7 +119,7 @@ def search():
         books_list.append(row_list)
     books.close()
 
-    return render_template("search_result.html", books_list=books_list)
+    return render_template("search_result.html", books_list=books_list, user=session['user'][0])
 
 @app.route("/book/<error>/<id>", methods=["GET", "POST"])
 def book(id, error = None):
@@ -145,7 +145,7 @@ def book(id, error = None):
         if error != "0":
             error = None
 
-        return render_template("book.html", book_info=book_info, reviews=reviews, error=error)
+        return render_template("book.html", book_info=book_info, reviews=reviews, error=error, user=session['user'][0])
     else:
         review_query = db.execute("SELECT reviewer, rating, review_text FROM reviews where reviewer = :user AND book_id = :id",
             {"user": session["user"], "id": id})

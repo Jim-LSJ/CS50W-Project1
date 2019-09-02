@@ -1,5 +1,9 @@
 {% extends "logedin_layout.html" %}
 
+{% block user %}
+    {{ user }}
+{% endblock %}
+
 {% block body %}
     <div class="container w-50" style="text-align: center; padding-top: 1rem;">
         <h1><i>{{ book_info['title'] }}</i></h1>
