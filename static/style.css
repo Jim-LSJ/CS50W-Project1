@@ -1,9 +1,14 @@
-@keyframes fadein {
+@keyframes fade {
   0% {
     left: 50%;
     opacity: 0; }
   100% {
     left: 0%;
+    opacity: 1.0; } }
+@keyframes fadein {
+  0% {
+    opacity: 0; }
+  100% {
     opacity: 1.0; } }
 #link-card:hover {
   -webkit-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
@@ -14,6 +19,10 @@
 
 #link-card {
   animation-duration: 1.5s;
+  animation-name: fade; }
+
+.book {
+  animation-duration: 2s;
   animation-name: fadein; }
 
 .card-header, .card-body {
