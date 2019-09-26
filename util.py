@@ -1,5 +1,6 @@
 import hashlib
 import requests
+from bs4 import BeautifulSoup
 
 def myhash(plaintext):
     m = hashlib.sha256()
@@ -18,3 +19,9 @@ def get_from_goodreads(isbn):
         reviews_count = "Not found"
 
     return average_rating, reviews_count
+
+def get_book_img(isbn):
+    r = requests.get("https://www.goodreads.com/search?q=" + isbn)
+    soup = BeautifulSoup(r.text, "html.parser")
+    img_url = soup.find('img', id='coverImage').get('src')
+    return img_url

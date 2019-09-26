@@ -5,38 +5,46 @@
 {% endblock %}
 
 {% block body %}
+    <div class="row book" style="text-align: center; padding-top: 2rem;">
+        <div class="container col-6" style="text-align: center; padding-top: 2rem;">
+            <img src="{{ book_info['img_url'] }}" style="height: 500px">
+            <br>
+            <a href="{{ book_info['good_read_search'] }}">View in goodreader</a>
+        </div>
+        <div class="container col-6" style="text-align: center; padding-top: 2rem;">
+            <h1>{{ book_info['title'] }}</h1>
+            <h3><i>written by {{ book_info['author'] }}</i></h3>
+            <br>
+            <h5>Published in {{ book_info['year'] }}</h5>
+            <h5>ISBN: {{ book_info['isbn'] }}</h5>
+            <br>
+            <h5>Average Goodreads rating: {{ book_info['average_rating'] }}</h5>
+            <h5>Reviews count: {{ book_info['reviews_count'] }}</h5>
+            <br>
+            <h5>
+                <form action="/book/1/{{ book_info['id'] }}" method="post">
+                    <div class="form-group">
+                        <label for="rating">Rate this book!(1~5)</label>
+                        <select class="form-control container w-50" name="rating" id="rating" style="text-align: center;">
+                            <option>1</option>
+                            <option>2</option>
+                            <option selected="selected">3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+
+                        <label for="review" style="text-align: left;">Leave a book review:</label>
+                        <textarea class="form-control" rows="3" autocomplete="off" name="review_text" id="review"></textarea>
+                        {% if error %}
+                            <h5>Please type something in the blank.</h5>
+                        {% endif %}
+                        <button class="btn btn-primary" type="submit">Confirm</button>
+                    </div>
+                </form>
+            </h5>
+        </div>
+    </div>
     <div class="container w-50 book" style="text-align: center; padding-top: 2rem;">
-        <h1>{{ book_info['title'] }}</h1>
-        <h3><i>written by {{ book_info['author'] }}</i></h3>
-        <br>
-        <h5>Published in {{ book_info['year'] }}</h5>
-        <h5>ISBN: {{ book_info['isbn'] }}</h5>
-        <br>
-        <h5>Average Goodreads rating: {{ book_info['average_rating'] }}</h5>
-        <h5>Reviews count: {{ book_info['reviews_count'] }}</h5>
-        <br>
-        <h5>
-            <form action="/book/1/{{ book_info['id'] }}" method="post">
-                <div class="form-group">
-                    <label for="rating">Rate this book!(1~5)</label>
-                    <select class="form-control container w-50" name="rating" id="rating" style="text-align: center;">
-                        <option>1</option>
-                        <option>2</option>
-                        <option selected="selected">3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-
-                    <label for="review" style="text-align: left;">Leave a book review:</label>
-                    <textarea class="form-control" rows="3" autocomplete="off" name="review_text" id="review"></textarea>
-                    {% if error %}
-                        <h5>Please type something in the blank.</h5>
-                    {% endif %}
-                    <button class="btn btn-primary" type="submit">Confirm</button>
-                </div>
-            </form>
-        </h5>
-
         {% if duplication %}
             <h5>You have already posted a review.</h5>
         {% endif %}
@@ -45,10 +53,11 @@
             <h5>User reviews:</h5>
             <ul class="list-group">
                 {% for review in reviews %}
-                <h6 style="text-align: left;">Reviewer: {{ review['reviewer'] }}</h6>
                 <li class="list-group-item">
-                    <small style="text-align: left;">Rating: {{ review['rating'] }}</small>
-                    <small style="text-align: right;"><i>{{ review['review_time'] }} </i></small>
+                    <h6 style="text-align: left;"><b>Reviewer: {{ review['reviewer'] }}</b></h6>
+                    <small style="float: left;">Rating: {{ review['rating'] }}</small>
+                    <small style="float: right;"><i>{{ review['review_time'] }}</i></small>
+                    <br>
                     <p style="text-align: center;">{{ review['review_text'] }}</p>
                 </li>
                 {% endfor %}

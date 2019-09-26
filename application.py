@@ -5,15 +5,16 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-from util import myhash, get_from_goodreads
+from util import myhash, get_from_goodreads, get_book_img
 from flask import jsonify
 import time
 
 app = Flask(__name__)
 
 # Check for environment variable
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
+# if not os.getenv("DATABASE_URL"):
+#     raise RuntimeError("DATABASE_URL is not set")
+DATABASE_URL = "postgres://yafxqjjsocathz:1fd633aa8cc389181308f5e381ca3afa81d8f3403fa1c2a63435763d339fe451@ec2-174-129-27-3.compute-1.amazonaws.com:5432/d7dvlktf67gjbn"
 
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
@@ -21,7 +22,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Set up database
-engine = create_engine(os.getenv("DATABASE_URL"))
+# engine = create_engine(os.getenv("DATABASE_URL"))
+engine = create_engine(DATABASE_URL)
 db = scoped_session(sessionmaker(bind=engine))
 
 
@@ -163,6 +165,9 @@ def book(id, error = None):
         average_rating, reviews_count = get_from_goodreads(book_info['isbn'])
         book_info['average_rating'] = average_rating
         book_info['reviews_count'] = reviews_count
+        
+        book_info['good_read_search'] = "https://www.goodreads.com/search?q=" + str(book_info['isbn'])
+        book_info['img_url'] = get_book_img(book_info['isbn'])
 
         review_query = db.execute("SELECT reviewer, rating, review_text, review_time FROM reviews where book_id = :id",
             {"user": session["user"], "id": id})
@@ -223,6 +228,3 @@ def api(isbn):
         book_info['average_score'] = None
 
     return jsonify(book_info)
-
-
-
