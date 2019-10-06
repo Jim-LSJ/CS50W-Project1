@@ -87,11 +87,8 @@
 
 ### Database
 1. books
-
 ![](https://i.imgur.com/8S4Vbi3.png)
 2. reviews
-
 ![](https://i.imgur.com/mt3iWdU.png)
 3. users
-
 ![](https://i.imgur.com/h86Uiiu.png)
